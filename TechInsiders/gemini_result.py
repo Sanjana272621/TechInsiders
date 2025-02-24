@@ -25,7 +25,7 @@ def detect_objects(image_path, api_key):
     prompt = """
     Please analyze this image and list all the main objects you can detect. 
     Format the response as a clear, detailed list of what you see.
-    Give resource links to learn about the main object.
+    Also give resource links for the main object to learn from it.
     """
 
     # Generate response
@@ -56,7 +56,7 @@ def generate_quiz_questions(objects_text, api_key):
     {objects_text}
     
     Generate 10 quiz questions about these objects. The questions should:
-    1. Be a mix of multiple choice and short answer questions
+    1. Be multiple choice only (4 options)
     2. Test knowledge about the objects' functions, characteristics, and relationships
     3. Include the correct answers after each question
     4. Range from easy to challenging difficulty
@@ -68,6 +68,37 @@ def generate_quiz_questions(objects_text, api_key):
     response = model.generate_content(prompt)
     
     return response.text
+
+def generate_project_ideas(objects_text, api_key):
+    """
+    Generate quiz questions based on detected objects
+    
+    Args:
+        objects_text (str): Text containing detected objects
+        api_key (str): Google AI API key
+    
+    Returns:
+        str: Generated quiz questions
+    """
+    # Configure the Gemini API
+    genai.configure(api_key=api_key)
+
+    # Load the model for text generation
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    
+    # Prompt for quiz generation
+    prompt = f"""
+    Based on these detected objects from an image:
+    {objects_text}
+    
+    Generate 2 or 3 project ideas where the range of ideas get more complex an out of the box. 
+    """
+
+    # Generate response
+    response = model.generate_content(prompt)
+    
+    return response.text
+
 
 # Example usage
 if __name__ == "__main__":
@@ -86,6 +117,10 @@ if __name__ == "__main__":
         print("\n=== Generated Quiz Questions ===")
         quiz = generate_quiz_questions(objects, API_KEY)
         print(quiz)
+
+        print("\n=== Generated Project Ideas ===")
+        idea = generate_project_ideas(objects, API_KEY)
+        print(idea)
         
     except Exception as e:
         print(f"An error occurred: {str(e)}")
