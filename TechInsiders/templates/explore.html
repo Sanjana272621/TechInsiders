@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curio - Explore</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="explore.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                Curio</a>
+            <ul class="nav-links">
+                <li><a href="about.html">Home </a></li>
+                <li><a href="explore.html">Explore </a></li>
+                <li><a href="history.html">History </a></li>
+                <li><a href="progress.html">Progress </a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="page-container">
+        <div class="explore-header">
+            <h1>Discover Your Next Adventure</h1>
+            <div class="search-container">
+                <input type="text" placeholder="Search courses..." id="courseSearch">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="tech">Technology</option>
+                    <option value="sport">Sports</option>
+                    <option value="food">Food</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="course-grid" id="courseGrid">
+            <!-- Courses will be loaded dynamically -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Curio</p>
+    </footer>
+
+    <script src="explore.js"></script>
+</body>
+</html>

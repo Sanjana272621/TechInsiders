@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curio - Upload & Learn</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        :root {
+            --color-purple: #9B5DE5;
+            --color-pink: #F15BB5;
+            --color-dark: #2D2D2D;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            min-height: 100vh;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--color-purple);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-purple);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-purple);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding-top: 100px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
+        }
+
+        /* Upload Area Styles */
+        .upload-area {
+            border: 3px dashed var(--color-purple);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            margin: 2rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .upload-area:hover {
+            background: rgba(155, 93, 229, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--color-purple);
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: var(--color-dark);
+            margin-bottom: 1rem;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 1rem auto;
+            border-radius: 8px;
+            display: none;
+        }
+
+        /* Button Styles */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem;
+        }
+
+        .action-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(45deg, var(--color-purple), var(--color-pink));
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-button:enabled {
+            opacity: 1;
+        }
+
+        .action-button:enabled:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(155, 93, 229, 0.1);
+            border-color: var(--color-purple);
+        }
+
+        .creative-idea {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .creative-idea:hover {
+            background: rgba(155, 93, 229, 0.1);
+            border-color: var(--color-purple);
+        }
+
+        .idea-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Curio</a>
+            <ul class="nav-links">
+                <li><a href="about.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="progress.html">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">Drag & Drop files here or Click to Upload</div>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            <img id="previewImage" class="preview-image" alt="Preview">
+        </div>
+
+        <div class="actions">
+            <button id="quizButton" class="action-button" disabled>
+                🧠 Get Quizzed
+            </button>
+            <button id="creativeButton" class="action-button" disabled>
+                🎨 Get Creative
+            </button>
+        </div>
+
+        <div id="quizSection" class="content-section">
+            <h2>Knowledge Quiz</h2>
+            <div class="question">
+                <p class="question-text">What type of object is detected in the image?</p>
+                <div class="options">
+                    <div class="option">A microprocessor</div>
+                    <div class="option">A microcontroller</div>
+                    <div class="option">A Mobile Phone</div>
+                    <div class="option">A Sensor</div>
+                </div>
+            </div>
+            <div class="question">
+                <p class="question-text">Which of the following is NOT a core component of the Arduino Uno?</p>
+                <div class="options">
+                    <div class="option">Microcontroller (ATmega328P)</div>
+                    <div class="option">USB port</div>
+                    <div class="option">Wi-Fi module</div>
+                    <div class="option">Analog input pins</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="creativeSection" class="content-section">
+            <h2>Creative Projects</h2>
+            <div class="creative-idea">
+                <h3 class="idea-title">Smart Home Automtion</h3>
+                <p>Create a smart home automation system using Arduino UNO and sensors like light, temperature and humidity sensors</p>
+            </div>
+            <div class="creative-idea">
+                <h3 class="idea-title">LED blinking</h3>
+                <p>Use inbuilt Arduino LED to generate light patterns</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewImage = document.getElementById('previewImage');
+        const quizButton = document.getElementById('quizButton');
+        const creativeButton = document.getElementById('creativeButton');
+        const quizSection = document.getElementById('quizSection');
+        const creativeSection = document.getElementById('creativeSection');
+
+        // Handle file upload
+        function handleFile(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                    quizButton.disabled = false;
+                    creativeButton.disabled = false;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                alert('Please upload an image file');
+            }
+        }
+
+        // Event Listeners
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(155, 93, 229, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = 'white';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'white';
+            const file = e.dataTransfer.files[0];
+            handleFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            handleFile(file);
+        });
+
+        quizButton.addEventListener('click', () => {
+            quizSection.style.display = 'block';
+            creativeSection.style.display = 'none';
+        });
+
+        creativeButton.addEventListener('click', () => {
+            creativeSection.style.display = 'block';
+            quizSection.style.display = 'none';
+        });
+
+        // Connecting with home page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if we came from the home page's "Get Started" button
+            const fromHome = new URLSearchParams(window.location.search).get('from') === 'home';
+            if (fromHome) {
+                // Scroll to upload section
+                uploadArea.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
