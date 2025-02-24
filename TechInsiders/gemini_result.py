@@ -25,6 +25,7 @@ def detect_objects(image_path, api_key):
     prompt = """
     Please analyze this image and list all the main objects you can detect. 
     Format the response as a clear, detailed list of what you see.
+    Give resource links to learn about the main object.
     """
 
     # Generate response
