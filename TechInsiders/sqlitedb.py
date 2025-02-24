@@ -122,10 +122,4 @@ def get_image_search_history(username):
     return history
 
 
-#sample
-add_user("sanjana")
-add_quiz_score("sanjana", 85)
-get_quiz_scores("sanjana")
-#add_image_search("sanjana", "tennis", "https://example.com/tennis_image.jpg")
-
-
+    
